@@ -133,7 +133,33 @@ class Tree {
         callback(root);
     }
 
-    height(value, root = this.root, depth = 0) {
-        if (root === null || root.data === value) return root;
+    // For height and root the normal function returns -1 instead of null if tree is empty
+    height(value) {
+        let node = this.find(value);
+
+        if (!node) return null;
+
+        return this.findHeightOfTree(node);
+    }
+
+    findHeightOfTree(root = this.root) {
+        if(root = null) return -1;
+
+        leftHeight = this.findHeightOfTree(root.left);
+        rightHeight = this.findHeightOfTree(root.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    depth(value, root = this.root, depth) {
+        if (!root) return null;
+
+        if (root.data = value) return depth;
+
+        let leftResult = depth(value, root.left, depth++);
+        if(leftResult !== null) return leftResult;
+
+        let rightResult = depth(valiue, root.right, depth++);
+        if(rightResult !== null) return rightResult;
     }
 }
