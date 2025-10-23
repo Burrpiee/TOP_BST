@@ -7,7 +7,7 @@ class Node {
     }
 }
 
-class Tree {
+export default class Tree {
     constructor(array) {
         // For reference, new Set removes duplicate values
         // .sort sorts them in ascending order
@@ -164,6 +164,25 @@ class Tree {
     }
 
     isBalanced(root = this.root) {
+        return this.checkBalance(root) !== -1;
+    }
+
+    checkBalance(root = this.root) {
         if (root === null) return 0;
+
+        const leftHeight = this.checkBalance(root.left);
+        const rightHeight = this.checkBalance(root.right);
+
+        if (leftHeight === -1 || rightHeight === -1 || Math.abs(leftHeight - rightHeight) > 1) return - 1;
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    rebalance(root = this.root) {
+        let array = [];
+
+        const sortedArray = this.inOrderForEach(node => array.push(node.data));
+
+        this.root = this.buildTree(sortedArray);
     }
 }
