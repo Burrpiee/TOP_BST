@@ -15,13 +15,13 @@ export default class Tree {
     }
 
     buildTree(array) {
-        if (array.length = 0) return null;
+        if (array.length === 0) return null;
 
         const mid = Math.floor(array.length / 2);
         const root = new Node(array[mid]);
 
         root.left = this.buildTree(array.slice(0, mid));
-        root.right = this.buildTree(array.slice(mid + 1))
+        root.right = this.buildTree(array.slice(mid + 1));
 
         return root
     }
@@ -41,12 +41,12 @@ export default class Tree {
     };
 
     insert(value , root = this.root) {
-        if (root = null) return new Node(value);
+        if (root === null) return new Node(value);
 
         if(value < root.data) {
             root.left = this.insert(value, root.left);
         } else {
-            root.right = this.insert(value. root.right);
+            root.right = this.insert(value, root.right);
         }
 
         return root;
@@ -98,7 +98,7 @@ export default class Tree {
                 queue.push(node.left);
             }
             if (node.right) {
-                queue,push(node.right);
+                queue.push(node.right);
             }
         } 
     }
@@ -106,7 +106,7 @@ export default class Tree {
     inOrderForEach(callback, root = this.root) {
         if (!callback) throw new Error("Callback is required");
 
-        if(this.root === null) return;
+        if(root === null) return;
         
         this.inOrderForEach(callback, root.left);
         callback(root);
@@ -120,13 +120,13 @@ export default class Tree {
         
         callback(root);
         this.preOrderForEach(callback, root.left);
-        this.preOrderForEach(callback, this.right);
+        this.preOrderForEach(callback, root.right);
     }
 
     postOrderForEach(callback, root = this.root) {
         if (!callback) throw new Error("Callback is required");
 
-        if (this.root === null) return;
+        if (root === null) return;
 
         this.postOrderForEach(callback, root.left);
         this.postOrderForEach(callback, root.right);
@@ -181,8 +181,8 @@ export default class Tree {
     rebalance(root = this.root) {
         let array = [];
 
-        const sortedArray = this.inOrderForEach(node => array.push(node.data));
+        this.inOrderForEach(node => array.push(node.data));
 
-        this.root = this.buildTree(sortedArray);
+        this.root = this.buildTree(array);
     }
 }
