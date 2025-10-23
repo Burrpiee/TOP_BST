@@ -143,10 +143,10 @@ class Tree {
     }
 
     findHeightOfTree(root = this.root) {
-        if(root = null) return -1;
+        if(root === null) return -1;
 
-        leftHeight = this.findHeightOfTree(root.left);
-        rightHeight = this.findHeightOfTree(root.right);
+        let leftHeight = this.findHeightOfTree(root.left);
+        let rightHeight = this.findHeightOfTree(root.right);
 
         return Math.max(leftHeight, rightHeight) + 1;
     }
@@ -154,12 +154,16 @@ class Tree {
     depth(value, root = this.root, depth) {
         if (!root) return null;
 
-        if (root.data = value) return depth;
+        if (root.data === value) return depth;
 
         let leftResult = depth(value, root.left, depth++);
         if(leftResult !== null) return leftResult;
 
-        let rightResult = depth(valiue, root.right, depth++);
+        let rightResult = depth(value, root.right, depth++);
         if(rightResult !== null) return rightResult;
+    }
+
+    isBalanced(root = this.root) {
+        if (root === null) return 0;
     }
 }
